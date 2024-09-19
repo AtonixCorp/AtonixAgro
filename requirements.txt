@@ -4,3 +4,7 @@ opencv-python
 python-openstackclient
 openstacksdk
 tensorflow
+pandas 
+seaborn 
+matplotlib 
+scikit-learn
