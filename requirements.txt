@@ -1,0 +1,6 @@
+paho-mqtt
+requests
+opencv-python
+python-openstackclient
+openstacksdk
+tensorflow
