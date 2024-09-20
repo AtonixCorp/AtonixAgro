@@ -30,6 +30,12 @@ const char *country = "ZA";
 // OpenWeather API URL
 String openWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + String(city) + "," + String(country) + "&appid=" + String(apiKey) + "&units=metric";
 
+// Sentinel Hub API credentials
+const char *apiKey = "your_sentinel_hub_api_key";
+
+// Sentinel Hub API URL
+String sentinelHubUrl = "https://services.sentinel-hub.com/api/v1/process";
+
 // Arduino IoT Cloud variables
 String atonixAgro;
 
