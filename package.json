@@ -1,0 +1,27 @@
+{
+  "name": "atonixagro",
+  "version": "1.0.0",
+  "description": "At Atonixagro, we empower farmers to thrive in the modern agricultural landscape by integrating cutting-edge technologies such as IoT, AI, robotics, and machine learning. Our solutions harness the power of Raspberry Pi and Arduino to create smart farming systems that enhance productivity, optimize resource use, and promote sustainable practices.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quxegdsa/AtonixAgro.git"
+  },
+  "author": "Guxegdsa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quxegdsa/AtonixAgro/issues"
+  },
+  "homepage": "https://github.com/quxegdsa/AtonixAgro#readme",
+  "dependencies": {
+    "@arduino/node-red-contrib-arduino-iot-cloud": "^1.0.10"
+  }
+}

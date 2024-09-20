@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Pre-Debug",
+            "type": "shell",
+            "command": "platformio",
+            "args": [
+                "run",
+                "--target",
+                "upload"
+            ],
+            "problemMatcher": [
+                "$platformio"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: install",
+            "command": "install",
+            "problemMatcher": [],
+            "detail": "CMake template install task"
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: build",
+            "command": "build",
+            "targets": [
+                "all"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "CMake template build task"
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: configure",
+            "command": "configure",
+            "problemMatcher": [],
+            "detail": "CMake template configure task"
+        }
+    ]
+}

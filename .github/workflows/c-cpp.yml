@@ -2,22 +2,29 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        ci_src: ["src/main.cpp", "src/key.cpp", "tests/test_main.cpp"]
+
     steps:
-    - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install PlatformIO
+        run: pip install -U platformio
+
+      - name: Compile ${{ matrix.ci_src }}
+        run: pio ci --board=<ID_1> --board=<ID_2> --board=<ID_N> ${{ matrix.ci_src }}
