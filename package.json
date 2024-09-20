@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/quxegdsa/AtonixAgro#readme",
   "dependencies": {
-    "@arduino/node-red-contrib-arduino-iot-cloud": "^1.0.10"
+    "@arduino/node-red-contrib-arduino-iot-cloud": "^1.0.10",
+    "@cgjgh/node-red-dashboard": "^1.17.0"
   }
 }
