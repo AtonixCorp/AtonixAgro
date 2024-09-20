@@ -1,2 +1,4 @@
 .pio
 env/
+lib/
+node_modules/
