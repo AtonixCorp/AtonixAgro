@@ -8,7 +8,6 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/include",
                 "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/src",
                 "/Users/ofidohubvm/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src",
                 "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/.pio/libdeps/esp32/WiFi101/src",
@@ -307,7 +306,6 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/include",
                     "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/src",
                     "/Users/ofidohubvm/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src",
                     "/Users/ofidohubvm/PlatformIO/Arduino/AtonixAgro/.pio/libdeps/esp32/WiFi101/src",
