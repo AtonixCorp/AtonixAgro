@@ -1,0 +1,12 @@
+# openai.yml
+
+# OpenAI configuration
+openai:
+  api_key: "${{ secrets.OPENAI_API_KEY }}"
+  api_url: "https://api.openai.com/v1/engines/davinci-codex/completions"
+  model: "davinci-codex"
+  max_tokens: 60
+  temperature: 0.7
+  top_p: 1.0
+  n: 1
+  stop: null
