@@ -4,6 +4,8 @@
 #include <ArduinoJson.h>
 #include "mqtt_client.h"
 #include <DHT.h>
+#include <ArduinoIoTCloud.h>
+#include <Arduino_ConnectionHandler.h>
 
 // Define the pins for the sensors
 #define SOIL_MOISTURE_PIN A0
@@ -22,22 +24,35 @@ const char *ssid = "OPPO_636C83_2.4G";
 const char *password = "et9m4JH9";
 
 // MQTT Broker
+const char *mqttBroker = "your_mqtt_broker";
 
-const char *apiKey = getenv("OPENWEATHER_API_KEY");
+// OpenWeather API credentials
+const char *openWeatherApiKey = getenv("OPENWEATHER_API_KEY");
 const char *city = "Johannesburg";
 const char *country = "ZA";
 
 // OpenWeather API URL
-String openWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + String(city) + "," + String(country) + "&appid=" + String(apiKey) + "&units=metric";
+String openWeatherUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + String(city) + "," + String(country) + "&appid=" + String(openWeatherApiKey) + "&units=metric";
 
 // Sentinel Hub API credentials
-const char *apiKey = "your_sentinel_hub_api_key";
+const char *sentinelHubApiKey = getenv("SENTINEL_HUB_CLIENT_SECRET");
 
 // Sentinel Hub API URL
 String sentinelHubUrl = "https://services.sentinel-hub.com/api/v1/process";
 
 // Arduino IoT Cloud variables
-String atonixAgro;
+float cloudSoilMoisture;
+float cloudTemperature;
+float cloudHumidity;
+
+void initProperties()
+{
+  ArduinoCloud.addProperty(cloudSoilMoisture, READ, ON_CHANGE, NULL);
+  ArduinoCloud.addProperty(cloudTemperature, READ, ON_CHANGE, NULL);
+  ArduinoCloud.addProperty(cloudHumidity, READ, ON_CHANGE, NULL);
+}
+
+WiFiConnectionHandler ArduinoIoTPreferredConnection(ssid, password);
 
 void setup()
 {
@@ -59,10 +74,16 @@ void setup()
     Serial.print(".");
   }
   Serial.println("WiFi connected");
+
+  // Initialize Arduino IoT Cloud
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  initProperties();
 }
 
 void loop()
 {
+  ArduinoCloud.update();
+
   // Read data from the soil moisture sensor
   soilMoisture = analogRead(SOIL_MOISTURE_PIN);
 
@@ -77,6 +98,11 @@ void loop()
   Serial.println(temperature);
   Serial.print("Humidity: ");
   Serial.println(humidity);
+
+  // Update cloud variables
+  cloudSoilMoisture = soilMoisture;
+  cloudTemperature = temperature;
+  cloudHumidity = humidity;
 
   // Fetch weather data from OpenWeather API
   if (WiFi.status() == WL_CONNECTED)
@@ -108,10 +134,10 @@ void loop()
 
       // Example data to send
       const char *topic = "sensor/data";
-      String payload = "{\"soilMoisture\": " + String(soilMoisture) + ", \"temperature\": " + String(temperature) + ", \"humidity\": " + String(humidity) + ", \"weatherTemp\": " + String(weatherTemp) + ", \"weatherHumidity\": " + String(weatherHumidity) + ", \"weatherDescription\": \"" + weatherDescription + "\"}";
+      String mqttPayload = "{\"soilMoisture\": " + String(soilMoisture) + ", \"temperature\": " + String(temperature) + ", \"humidity\": " + String(humidity) + ", \"weatherTemp\": " + String(weatherTemp) + ", \"weatherHumidity\": " + String(weatherHumidity) + ", \"weatherDescription\": \"" + weatherDescription + "\"}";
 
       // Send data to the cloud
-      sendDataToCloud(topic, payload.c_str());
+      sendDataToCloud(topic, mqttPayload.c_str());
     }
     else
     {
