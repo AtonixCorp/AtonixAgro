@@ -20,19 +20,23 @@ float temperature;
 float humidity;
 
 // WiFi credentials
-const char* ssid = "your_SSID"; // Replace with your Wi-Fi SSID
-const char* password = "your_PASSWORD"; // Replace with your Wi-Fi password
+const char *ssid = "your_SSID";         // Replace with your Wi-Fi SSID
+const char *password = "your_PASSWORD"; // Replace with your Wi-Fi password
 
 // Sentinel Hub API credentials
-const char* apiKey = "your_sentinel_hub_api_key";
+const char *apiKey = "your_sentinel_hub_api_key";
 
 // Sentinel Hub API URL
 String sentinelHubUrl = "https://services.sentinel-hub.com/api/v1/process";
 
+// Server URL
+const char *serverUrl = "http://your_server_ip:3000/data";
+
 // Arduino IoT Cloud variables
 String atonixAgro;
 
-void setup() {
+void setup()
+{
   // Initialize serial communication
   Serial.begin(115200);
   delay(1500);
@@ -42,14 +46,16 @@ void setup() {
 
   // Connect to WiFi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
     Serial.print(".");
   }
   Serial.println("WiFi connected");
 }
 
-void loop() {
+void loop()
+{
   // Read data from the soil moisture sensor
   soilMoisture = analogRead(SOIL_MOISTURE_PIN);
 
@@ -66,7 +72,8 @@ void loop() {
   Serial.println(humidity);
 
   // Fetch data from Sentinel Hub API
-  if (WiFi.status() == WL_CONNECTED) {
+  if (WiFi.status() == WL_CONNECTED)
+  {
     HTTPClient http;
     http.begin(sentinelHubUrl);
     http.addHeader("Authorization", "Bearer " + String(apiKey));
@@ -77,7 +84,8 @@ void loop() {
 
     int httpCode = http.POST(payload);
 
-    if (httpCode > 0) {
+    if (httpCode > 0)
+    {
       String response = http.getString();
       Serial.println(response);
 
@@ -90,7 +98,9 @@ void loop() {
       // float someValue = doc["someKey"].as<float>();
       // Serial.print("Some Value: ");
       // Serial.println(someValue);
-    } else {
+    }
+    else
+    {
       Serial.println("Error on HTTP request");
     }
     http.end();

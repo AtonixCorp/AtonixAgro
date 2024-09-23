@@ -3,6 +3,12 @@
 
 #define IRRIGATION_PIN 3
 
+int readSoilMoisture()
+{
+    // Example logic to read soil moisture
+    return analogRead(A0);
+}
+
 void initIrrigationSystem()
 {
     pinMode(IRRIGATION_PIN, OUTPUT);
