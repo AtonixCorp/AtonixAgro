@@ -1,4 +1,3 @@
 .pio
 env/
-.env/
 node_modules/
