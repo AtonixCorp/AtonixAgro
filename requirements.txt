@@ -12,3 +12,4 @@ arduino-iot-client
 typing_extensions
 edgeimpulse
 ngcsdk
+python-dotenv
